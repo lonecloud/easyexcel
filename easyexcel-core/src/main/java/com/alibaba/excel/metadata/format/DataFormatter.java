@@ -379,6 +379,7 @@ public class DataFormatter {
         boolean mIsMonth = true;
         List<Integer> ms = new ArrayList<Integer>();
         boolean isElapsed = false;
+        boolean hUsed = false;
         for (int j = 0; j < chars.length; j++) {
             char c = chars[j];
             if (c == '\'') {
@@ -413,6 +414,7 @@ public class DataFormatter {
                 }
             } else if (c == 'h' || c == 'H') {
                 mIsMonth = false;
+                hUsed = true;
                 if (hasAmPm) {
                     sb.append('h');
                 } else {
@@ -436,7 +438,9 @@ public class DataFormatter {
                 mIsMonth = true;
                 ms.clear();
             } else if (Character.isLetter(c)) {
-                mIsMonth = true;
+                if (!hUsed){
+                    mIsMonth = true;
+                }
                 ms.clear();
                 if (c == 'y' || c == 'Y') {
                     sb.append('y');
